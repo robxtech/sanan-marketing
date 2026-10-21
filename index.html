@@ -486,7 +486,7 @@ const WHATSAPP = '971585790010'; // e.g. '9715XXXXXXXX'
 const PHONE = '+971585790010';
 const LEAD_EMAIL = 'akarshansanan@sananrealestate.ae';    // e.g. '+9715XXXXXXXX' (shows call buttons)
 if (PHONE) document.querySelectorAll('[data-tel]').forEach(a => { a.href = 'tel:' + PHONE; a.hidden = false; });
-if (WHATSAPP) document.querySelectorAll('[data-wa]').forEach(a => { a.href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent('Hi Akarshan, I found SANAN online and would like to discuss buying in Dubai.'); a.target = '_blank'; });
+if (WHATSAPP) document.querySelectorAll('[data-wa]').forEach(a => { a.href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent("Hi Akarshan, I found you on sananrealestate.ae. I'm looking to buy in Dubai. My budget is around AED ___ and I'm interested in ___ (area). Can we chat?"); a.target = '_blank'; });
 
 document.querySelectorAll('.chips').forEach(g => g.addEventListener('click', e => {
   if (e.target.tagName !== 'BUTTON') return;
@@ -511,7 +511,7 @@ document.querySelectorAll('.lead').forEach(box => {
     if (!data.phone.trim() && !data.email.trim()) { err.style.display = 'block'; return; }
     err.style.display = 'none';
     const btn = f.querySelector('.btn'); btn.disabled = true; btn.textContent = 'Sending...';
-    const waText = 'Hi Akarshan, I found SANAN online.\n' + [['Name',data.name],['Phone',data.phone],['Email',data.email],['Looking for',data.interest],['Budget',data.budget],['Timeline',data.timeline],['Message',data.message]].filter(x => x[1]).map(x => x[0] + ': ' + x[1]).join('\n');
+    const waText = 'Hi Akarshan, I found you on sananrealestate.ae.\n' + [['Name',data.name],['Phone',data.phone],['Email',data.email],['Looking for',data.interest],['Budget',data.budget],['Timeline',data.timeline],['Message',data.message]].filter(x => x[1]).map(x => x[0] + ': ' + x[1]).join('\n');
     let saved = false;
     let emailed = false;
     try { const r = await fetch('/api/leads', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(data) }); saved = r.ok; if (r.ok) emailed = !!(await r.json().catch(() => ({}))).emailed; } catch {}
